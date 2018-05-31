@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MyCacheApp.Controllers
 {
+    ///[ResponseCache(VaryByHeader = "User-Agent", Duration = 30)]
+    ///[ResponseCache(CacheProfileName = "Default")]
+    [ResponseCache(Duration = 10)]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
@@ -13,7 +16,10 @@ namespace MyCacheApp.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            //test works for ten seconds not for 30+
+            var d = DateTime.Now; 
+
+            return new string[] { "value1", "value2", d.ToString() };
         }
 
         // GET api/values/5
